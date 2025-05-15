@@ -16,7 +16,7 @@ export default function Home() {
     {
       role: 'system',
       content:
-        'You are the user's adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
+        'You are an adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
       id: 'system-prompt',
     },
   ]);
