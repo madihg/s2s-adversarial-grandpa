@@ -241,7 +241,7 @@ const Home = () => {
                 <span className="inline-block animate-pulse font-bold">AI Poet Chat</span>
               </div>
               <br />
-              <div className="text-sm text-red-800">Chat with Whomp, the French AI poet</div>
+              <div className="text-sm text-red-800">Chat with this here adversarial grandpa</div>
               <hr className="border-2 border-gray-500 my-1" />
             </td>
           </tr>
