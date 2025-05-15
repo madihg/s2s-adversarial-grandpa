@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect export default Home; from 'react';
 import { Mic, Square, Send, Volume2, User, Bot } from 'lucide-react';
 
 interface Message {
@@ -11,12 +11,31 @@ interface Message {
   isFloating?: boolean;
 }
 
-export default function Home() {
+const Home = () => {
+  // Add CSS keyframes at the top of the component
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+      .animate-marquee {
+        animation: marquee 15s linear infinite;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'system',
       content:
-        'You are an adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
+        'You are the user's adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
       id: 'system-prompt',
     },
   ]);
@@ -209,15 +228,17 @@ export default function Home() {
         <tbody>
           <tr>
             <td className="bg-teal-800 text-center p-2" colSpan={3}>
-              <marquee scrollAmount="3" className="font-bold text-yellow-300">
-                ***** WELCOME TO GRUMPY GRANDPA CHAT v1.0 ***** BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 *****
-              </marquee>
+              <div className="font-bold text-yellow-300 overflow-hidden whitespace-nowrap">
+                <div className="animate-marquee inline-block">
+                  ***** WELCOME TO GRUMPY GRANDPA CHAT v1.0 ***** BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 *****
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="bg-gray-300 p-2 text-center" colSpan={3}>
               <font face="Comic Sans MS" size="6" color="purple">
-                <blink>AI Poet Chat</blink>
+                <span className="inline-block animate-pulse font-bold text-purple-800">AI Poet Chat</span>
               </font>
               <br />
               <font size="2" color="maroon">Chat with Whomp, the French AI poet</font>
