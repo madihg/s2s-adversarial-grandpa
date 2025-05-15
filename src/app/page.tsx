@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect export default Home; from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Mic, Square, Send, Volume2, User, Bot } from 'lucide-react';
 
 interface Message {
@@ -12,7 +12,7 @@ interface Message {
 }
 
 const Home = () => {
-  // Add CSS keyframes at the top of the component
+  // Add CSS keyframes for the marquee effect
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -353,4 +353,6 @@ const Home = () => {
       </table>
     </div>
   );
-}
+};
+
+export default Home;
