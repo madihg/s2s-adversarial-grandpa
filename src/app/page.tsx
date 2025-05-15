@@ -35,7 +35,7 @@ const Home = () => {
     {
       role: 'system',
       content:
-        'You are an adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
+        'You are the user's adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
       id: 'system-prompt',
     },
   ]);
@@ -237,11 +237,11 @@ const Home = () => {
           </tr>
           <tr>
             <td className="bg-gray-300 p-2 text-center" colSpan={3}>
-              <font face="Comic Sans MS" size="6" color="purple">
-                <span className="inline-block animate-pulse font-bold text-purple-800">AI Poet Chat</span>
-              </font>
+              <div style={{ fontFamily: "'Comic Sans MS', cursive" }} className="text-4xl text-purple-800">
+                <span className="inline-block animate-pulse font-bold">AI Poet Chat</span>
+              </div>
               <br />
-              <font size="2" color="maroon">Chat with Whomp, the French AI poet</font>
+              <div className="text-sm text-red-800">Chat with Whomp, the French AI poet</div>
               <hr className="border-2 border-gray-500 my-1" />
             </td>
           </tr>
@@ -254,7 +254,7 @@ const Home = () => {
                       <tbody>
                         <tr>
                           {message.role === 'assistant' && (
-                            <td width="40" valign="top">
+                            <td className="align-top" width="40">
                               <div className="bg-blue-300 border-2 border-blue-600 p-1 text-center">
                                 <Bot size={20} className="text-blue-800 inline" />
                               </div>
@@ -283,7 +283,7 @@ const Home = () => {
                             )}
                           </td>
                           {message.role === 'user' && (
-                            <td width="40" valign="top">
+                            <td className="align-top" width="40">
                               <div className="bg-lime-300 border-2 border-lime-600 p-1 text-center">
                                 <User size={20} className="text-lime-800 inline" />
                               </div>
