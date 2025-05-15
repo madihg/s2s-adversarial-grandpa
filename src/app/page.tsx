@@ -16,7 +16,7 @@ export default function Home() {
     {
       role: 'system',
       content:
-        'You are an adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
+        'You are the user's adversarial grandfather, responding with condescension, skepticism, and mild disappointment at the new generation.',
       id: 'system-prompt',
     },
   ]);
@@ -204,103 +204,110 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200">
-      <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-          <div className="h-[700px] flex flex-col">
-            <div className="p-4 bg-blue-50 border-b border-blue-200">
-              <h1 className="text-2xl font-semibold text-gray-800">AI Poet Chat</h1>
-              <p className="text-sm text-gray-600">Chat with Whomp, the French AI poet</p>
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-4 space-y-6">
-              {messages.slice(1).map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex items-start space-x-2 ${
-                    message.role === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
-                >
-                  {message.role === 'assistant' && (
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                      <Bot size={20} className="text-blue-600" />
-                    </div>
-                  )}
-
-                  <div
-                    className={`flex flex-col max-w-[70%] ${
-                      message.role === 'user' ? 'items-end' : 'items-start'
-                    }`}
-                  >
-                    <div
-                      className={`rounded-2xl p-4 ${
-                        message.role === 'user'
-                          ? 'bg-blue-500 text-white' + (message.isFloating ? ' animate-bounce' : '')
-                          : 'bg-gray-100 text-gray-800'
-                      }`}
-                    >
-                      <p className="whitespace-pre-wrap">{message.content}</p>
-                    </div>
-
-                    {message.role === 'assistant' && (
-                      <button
-                        onClick={() => speakText(message.content)}
-                        className="mt-2 text-gray-500 hover:text-gray-700 transition-colors"
-                        aria-label="Text to speech"
-                      >
-                        <Volume2 size={16} />
-                      </button>
-                    )}
-
-                    {message.timestamp && (
-                      <span className="text-xs text-gray-500 mt-1">
-                        {new Date(message.timestamp).toLocaleTimeString()}
-                      </span>
-                    )}
+    <div className="min-h-screen bg-gray-900 p-4">
+      <table className="mx-auto border-8 border-gray-400 w-full max-w-4xl" cellSpacing="0" cellPadding="0">
+        <tbody>
+          <tr>
+            <td className="bg-teal-800 text-center p-2" colSpan={3}>
+              <marquee scrollAmount="3" className="font-bold text-yellow-300">
+                ***** WELCOME TO GRUMPY GRANDPA CHAT v1.0 ***** BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 *****
+              </marquee>
+            </td>
+          </tr>
+          <tr>
+            <td className="bg-gray-300 p-2 text-center" colSpan={3}>
+              <font face="Comic Sans MS" size="6" color="purple">
+                <blink>AI Poet Chat</blink>
+              </font>
+              <br />
+              <font size="2" color="maroon">Chat with Whomp, the French AI poet</font>
+              <hr className="border-2 border-gray-500 my-1" />
+            </td>
+          </tr>
+          <tr>
+            <td className="bg-gray-200 p-0" colSpan={3}>
+              <div className="h-96 overflow-y-auto p-2 bg-white border-4 border-inset border-gray-400">
+                {messages.slice(1).map((message) => (
+                  <div key={message.id} className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
+                    <table className={`${message.role === 'user' ? 'ml-auto' : 'mr-auto'}`} cellPadding="0" cellSpacing="0" width="80%">
+                      <tbody>
+                        <tr>
+                          {message.role === 'assistant' && (
+                            <td width="40" valign="top">
+                              <div className="bg-blue-300 border-2 border-blue-600 p-1 text-center">
+                                <Bot size={20} className="text-blue-800 inline" />
+                              </div>
+                            </td>
+                          )}
+                          <td>
+                            <div className={`${
+                              message.role === 'user'
+                                ? 'bg-lime-200 border-2 border-lime-700 text-black font-bold' + (message.isFloating ? ' animate-bounce' : '')
+                                : 'bg-gray-300 border-2 border-gray-700 font-mono'
+                            } p-2`}>
+                              <p className="whitespace-pre-wrap">{message.content}</p>
+                            </div>
+                            {message.role === 'assistant' && (
+                              <button
+                                onClick={() => speakText(message.content)}
+                                className="mt-1 bg-orange-500 hover:bg-orange-600 text-white border border-orange-700 p-1"
+                              >
+                                <Volume2 size={16} className="inline mr-1" /> SPEAK
+                              </button>
+                            )}
+                            {message.timestamp && (
+                              <div className="text-xs text-gray-600 mt-1 italic">
+                                {new Date(message.timestamp).toLocaleTimeString()}
+                              </div>
+                            )}
+                          </td>
+                          {message.role === 'user' && (
+                            <td width="40" valign="top">
+                              <div className="bg-lime-300 border-2 border-lime-600 p-1 text-center">
+                                <User size={20} className="text-lime-800 inline" />
+                              </div>
+                            </td>
+                          )}
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
+                ))}
 
-                  {message.role === 'user' && (
-                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                      <User size={20} className="text-gray-600" />
+                {isLoading && (
+                  <div className="flex items-start space-x-2 mb-4">
+                    <div className="bg-blue-300 border-2 border-blue-600 p-1 text-center">
+                      <Bot size={20} className="text-blue-800" />
                     </div>
-                  )}
-                </div>
-              ))}
-
-              {isLoading && (
-                <div className="flex justify-start items-center space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    <Bot size={20} className="text-blue-600" />
-                  </div>
-                  <div className="bg-gray-100 rounded-2xl p-4">
-                    <div className="flex space-x-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    <div className="bg-gray-300 border-2 border-gray-700 p-2 italic">
+                      <img src="/api/placeholder/16/16" alt="loading" className="inline mr-1" />
+                      Processing...
+                      <img src="/api/placeholder/16/16" alt="loading" className="inline ml-1" />
                     </div>
                   </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-
-            <div className="p-4 bg-white border-t border-gray-200">
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td className="bg-gray-300 p-2" colSpan={3}>
               <form onSubmit={handleSubmit} className="flex items-center space-x-2">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Type your message..."
-                  className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Type your message here..."
+                  className="flex-1 p-2 border-4 border-gray-500 bg-gray-100 font-mono text-sm"
                   disabled={isLoading}
                 />
                 <button
                   type="button"
                   onClick={isRecording ? stopRecording : startRecording}
-                  className={`p-3 rounded-lg transition-colors ${
+                  className={`p-2 border-4 ${
                     isRecording
-                      ? 'bg-red-500 hover:bg-red-600 text-white'
-                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                      ? 'bg-red-500 hover:bg-red-600 text-white border-red-800'
+                      : 'bg-gray-200 hover:bg-gray-300 text-gray-700 border-gray-500'
                   }`}
                   disabled={isLoading}
                 >
@@ -308,16 +315,21 @@ export default function Home() {
                 </button>
                 <button
                   type="submit"
-                  className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 bg-blue-500 text-white border-4 border-blue-800 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed font-bold"
                   disabled={!input.trim() || isLoading}
                 >
-                  <Send size={20} />
+                  <Send size={20} className="inline mr-1" /> SEND
                 </button>
               </form>
-            </div>
-          </div>
-        </div>
-      </div>
+            </td>
+          </tr>
+          <tr>
+            <td className="bg-teal-800 text-center p-1 text-yellow-300 text-xs" colSpan={3}>
+              © 1996 Retro Chat Systems - Hit Counter: 12942 - Made with Microsoft FrontPage
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
